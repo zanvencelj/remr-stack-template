@@ -20,6 +20,8 @@ services:
     build:
       context: ./backend
       target: production
+    ports:
+      - "8000:8000"
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: user

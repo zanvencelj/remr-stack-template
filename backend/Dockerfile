@@ -10,6 +10,6 @@ CMD ["yarn", "start"]
 FROM node:18-alpine AS production
 WORKDIR /app
 COPY package.json yarn.lock ./
-RUN npm install --only=production
+RUN yarn install
 COPY . .
 CMD ["node", "src/server.js"]

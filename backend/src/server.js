@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require("cors");
 const mysql = require('mysql2');
 const redis = require('redis');
 const dotenv = require('dotenv');
@@ -35,9 +36,17 @@ redisClient.on('error', (err) => {
     console.error('Redis error:', err);
 });
 
+app.use(cors({
+  origin: "*", // update to match the domain you will make the request from
+}))
+
 // Example route
 app.get('/', (req, res) => {
     res.send('Hello from Express backend!');
+});
+
+app.get('/api/test', (req, res) => {
+  res.send('Hello from Express backend!');
 });
 
 app.listen(port, () => {

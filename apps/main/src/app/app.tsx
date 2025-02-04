@@ -1,6 +1,7 @@
 import { Route, Routes, Link } from 'react-router-dom';
 import Home from "./Home/Home";
 import {Navigation} from "@temp/Navigation";
+import Example from "./Example/Example";
 
 export function App() {
   return (
@@ -15,12 +16,8 @@ export function App() {
           element={<Home/>}
         />
         <Route
-          path="/page-2"
-          element={
-            <div>
-              <Link to="/">Click here to go back to root page.</Link>
-            </div>
-          }
+          path="/example"
+          element={<Example/>}
         />
       </Routes>
       {/* END: routes */}
