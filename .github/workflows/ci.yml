@@ -11,31 +11,85 @@ permissions:
   contents: read
 
 jobs:
-  main:
+  setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # This enables task distribution via Nx Cloud
-      # Run this command as early as possible, before dependencies are installed
-      # Learn more at https://nx.dev/ci/reference/nx-cloud-cli#npx-nxcloud-startcirun
-      # Uncomment this line to enable task distribution
-      # - run: npx nx-cloud start-ci-run --distribute-on="3 linux-medium-js" --stop-agents-after="e2e-ci"
-
-      # Cache node_modules
-      - uses: actions/setup-node@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+      # Use Yarn 3.6.4 from .yarn/releases
+      - name: Install Yarn
+        run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
 
-      - run: npm ci --legacy-peer-deps
-      - run: npx playwright install --with-deps
-      - uses: nrwl/nx-set-shas@v4
+  lint:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Cache Yarn Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
+      - name: Run Lint
+        run: yarn nx affected --target=lint --parallel --base=origin/master --head=HEAD
+        working-directory: ./  # Set working directory to the root of your repo
 
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      # - run: npx nx-cloud record -- echo Hello World
-      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
-      # When you enable task distribution, run the e2e-ci task instead of e2e
-      - run: npx nx affected -t lint test build e2e
+  test:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Cache Yarn Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
+      - name: Run Tests for Affected Projects
+        run: yarn nx affected --target=test --parallel --base=origin/master --head=HEAD
+        working-directory: ./  # Set working directory to the root of your repo
+
+  build:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Cache Yarn Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
+      - name: Build Affected Projects
+        run: yarn nx affected --target=build --parallel --base=origin/master --head=HEAD
+        working-directory: ./  # Set working directory to the root of your repo
+
+  e2e:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Cache Yarn Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.yarn/cache
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
+      - name: Run End-to-End Tests
+        run: yarn nx affected --target=e2e --parallel --base=origin/master --head=HEAD
+        working-directory: ./  # Set working directory to the root of your repo

@@ -7,7 +7,7 @@
     "build:main": "nx run-many --target=build --projects=main",
     "test:main": "nx run-many --target=test --projects=main",
     "lint:main": "nx run-many --target=lint --projects=main",
-    "e2e:main": "nx run-many --target=e2e --projects=main",
+    "e2e:main": "nx run-many --target=e2e --projects=main-e2e",
     "start:backend": "cd backend && yarn start"
   },
   "private": true,

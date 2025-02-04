@@ -365,11 +365,9 @@ const Home = () => {
       </section>
 
       {/* Footer */}
-
       <section className="mb-8">
         <h2 className="text-2xl font-bold mb-4">Enjoy building with the REMR Stack Template! 🚀</h2>
       </section>
-
     </div>
   );
 }
