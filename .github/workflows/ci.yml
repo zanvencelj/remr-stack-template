@@ -41,7 +41,6 @@ jobs:
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Run Lint
         run: yarn nx affected --target=lint --parallel --base=origin/master --head=HEAD
-        working-directory: ./  # Set working directory to the root of your repo
 
   test:
     runs-on: ubuntu-latest
@@ -58,7 +57,6 @@ jobs:
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Run Tests for Affected Projects
         run: yarn nx affected --target=test --parallel --base=origin/master --head=HEAD
-        working-directory: ./  # Set working directory to the root of your repo
 
   build:
     runs-on: ubuntu-latest
@@ -75,7 +73,6 @@ jobs:
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Build Affected Projects
         run: yarn nx affected --target=build --parallel --base=origin/master --head=HEAD
-        working-directory: ./  # Set working directory to the root of your repo
 
   e2e:
     runs-on: ubuntu-latest
@@ -92,4 +89,3 @@ jobs:
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Run End-to-End Tests
         run: yarn nx affected --target=e2e --parallel --base=origin/master --head=HEAD
-        working-directory: ./  # Set working directory to the root of your repo
