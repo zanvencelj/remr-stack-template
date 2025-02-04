@@ -30,62 +30,50 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: Cache Yarn Dependencies
-        uses: actions/cache@v3
+      - uses: actions/checkout@v4
         with:
-          path: ~/.yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          fetch-depth: 0  # Ensure the repository is fully checked out
       - name: Install Dependencies
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Run Lint
-        run: npx nx affected --target=lint --parallel --base=origin/master --head=HEAD
+        run: yarn nx affected --target=lint --parallel --base=origin/master --head=HEAD
+        working-directory: ./  # Set working directory to the root of your repo
 
   test:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: Cache Yarn Dependencies
-        uses: actions/cache@v3
+      - uses: actions/checkout@v4
         with:
-          path: ~/.yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          fetch-depth: 0  # Ensure the repository is fully checked out
       - name: Install Dependencies
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Run Tests for Affected Projects
-        run: npx nx affected --target=test --parallel --base=origin/master --head=HEAD
+        run: yarn nx affected --target=test --parallel --base=origin/master --head=HEAD
+        working-directory: ./  # Set working directory to the root of your repo
 
   build:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: Cache Yarn Dependencies
-        uses: actions/cache@v3
+      - uses: actions/checkout@v4
         with:
-          path: ~/.yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          fetch-depth: 0  # Ensure the repository is fully checked out
       - name: Install Dependencies
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Build Affected Projects
-        run: npx nx affected --target=build --parallel --base=origin/master --head=HEAD
+        run: yarn nx affected --target=build --parallel --base=origin/master --head=HEAD
+        working-directory: ./  # Set working directory to the root of your repo
 
   e2e:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - name: Cache Yarn Dependencies
-        uses: actions/cache@v3
+      - uses: actions/checkout@v4
         with:
-          path: ~/.yarn/cache
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          fetch-depth: 0  # Ensure the repository is fully checked out
       - name: Install Dependencies
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Run End-to-End Tests
-        run: npx nx affected --target=e2e --parallel --base=origin/master --head=HEAD
+        run: yarn nx affected --target=e2e --parallel --base=origin/master --head=HEAD
+        working-directory: ./  # Set working directory to the root of your repo
