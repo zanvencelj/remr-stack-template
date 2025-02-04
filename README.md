@@ -1,82 +1,253 @@
-# Temp
-
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
-
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
-
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
-
-## Finish your CI setup
-
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/xuOWzGUOQJ)
+![REMR](https://github.com/user-attachments/assets/7cbd1715-37f4-4c9d-9feb-370ad86b4dc8)
 
 
-## Run tasks
+# REMR Stack Template
+A modern, full-stack development template using **Nx Monorepo, React, Express, MariaDB, Redis,** and **Docker**. This project is designed to help you quickly bootstrap a scalable and containerized full-stack application.
 
-To run the dev server for your app, use:
+## Features
 
-```sh
-npx nx serve frontend
+- **Nx Monorepo**: Manage frontend and backend code in a single repository with built-in tooling for dependency management, code generation, and more.
+
+- **React**: A powerful frontend library for building user interfaces.
+
+- **Express**: A lightweight backend framework for building RESTful APIs.
+
+- **MariaDB**: A robust, open-source relational database.
+
+- **Redis**: A high-performance in-memory data store for caching and session management.
+
+- **Docker**: Containerization for easy development, testing, and deployment.
+
+
+## Prerequisites
+
+Before you begin, ensure you have the following installed:
+
+- **Node.js** (v16 or higher recommended)
+
+- **Docker** (v20 or higher recommended)
+
+- **Docker Compose** (v2 or higher recommended)
+
+- **Nx CLI** (optional but recommended for better developer experience)
+
+
+## Getting Started
+#### 1. Clone the Repository
+
+```bash
+git clone https://github.com/zanvencelj/remr-stack-template.git
+cd remr-stack-template
 ```
 
-To create a production bundle:
+#### 2. Install Dependencies
 
-```sh
-npx nx build frontend
+Run the following command to install dependencies for both the frontend:
+
+```bash
+yarn install
 ```
 
-To see all available targets to run for a project, run:
+#### 3. Set Up Environment Variables
 
-```sh
-npx nx show project frontend
+Edit the `doocker-compose.yml` and `docker-compose.prod.yml` files to include your specific configuration (e.g., database credentials, Redis connection details).
+
+#### 4. Start the Application with Docker
+
+This project uses Docker Compose to manage the backend services (Express, MariaDB, Redis). To start the application, run:
+
+```bash
+docker-compose up --build
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+This will:
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- Build the Docker images for the backend, MariaDB, and Redis.
 
-## Add new projects
+- Start all the services.
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+Once the containers are running, you can access:
 
-Use the plugin's generator to create new projects.
+**Backend API**: `http://localhost:8000/api`
 
-To generate a new application, use:
+#### 5. Start the Frontend
 
-```sh
-npx nx g @nx/react:app demo
+In development, the frontend is run directly from the terminal. To start the frontend development server, use one of the following commands:
+
+```bash
+yarn start:main
+```
+or
+```bash
+npx nx run <app-name>:serve
+```
+Replace **`<app-name>`** with the name of your frontend app (e.g., `main`).
+
+Once this is running, you can access:
+
+- **Frontend**: `http://localhost:4200`
+
+**Running Multiple Frontend Apps**
+
+If your project contains multiple frontend applications, you can configure the `package.json` scripts to run multiple projects simultaneously. For example:
+
+```
+nx run-many --target=serve --projects=<app1>,<app2>,<app3>
 ```
 
-To generate a new library, use:
+Replace `<app1>,<app2>,<app3>` with the names of your frontend apps. This command will start all specified apps in parallel.
 
-```sh
-npx nx g @nx/react:lib mylib
+#### 6. (Optional) Run Without Docker
+
+If you prefer to run the application locally without Docker:
+
+Start the Backend
+
+```bash
+yarn start:backend
+```
+Make sure MariaDB and Redis are running locally and properly configured in your **`.env`** file.
+
+
+## Project Structure
+
+The project is organized as an Nx Monorepo with the following structure:
+
+```
+remr-stack-template/
+├── apps/
+│   └── main/                # React application
+├── libs/                    # Shared libraries (e.g., utilities, types)
+├── backend/
+│   ├── src/                 # Backend files
+│   │   └── server.js        # Backend entrypoint
+│   └── package.json         # Backend package.json
+├── dist/                    # Builds and other outputs
+├── docker-compose.yml       # Docker Compose configuration
+├── docker-compose.prod.yml  # Docker Compose configuration for production
+├── .env                     # Environment variables
+├── nx.json                  # Nx workspace configuration
+├── package.json             # Root package.json
+└── README.md                # This file
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+## Available Scripts
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- `start:main`: Starts the frontend in development mode (without Docker).
+- `build:main`: Builds the frontend for production.
+- `test:main`: Runs tests for frontend apps.
+- `lint:main`: Lints the monorepo project defined in scripts.
+- `e2e:main`: Runs e2e tests for monorepo project defined in scripts.
+- `start:backend`: Starts the Express server.
 
 
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Docker Configuration
 
-## Install Nx Console
+The `docker-compose.yml` file defines the following services:
 
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
+- **backend**: Express app served on port 8000.
 
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+- **mariadb**: MariaDB database.
 
-## Useful links
+- **redis**: Redis server for caching.
 
-Learn more:
+You can customize the Docker configuration by editing the `docker-compose.yml` file or the individual Dockerfiles.
 
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
 
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Production Deployment
+For production deployment, this project includes a `docker-compose.prod.yml` file optimized for running the REMR Stack in a production environment. This configuration ensures that all services (frontend, backend, MariaDB, and Redis) are built and run with production-ready settings.
+
+### Steps to Deploy in Production
+  **1. Build the Production Images**    
+  Run the following command to build the Docker images for production:
+  
+  ```bash
+  docker-compose -f docker-compose.prod.yml build
+  ```
+  This will:
+  
+  - Build the React frontend with production optimizations (e.g., minified code, tree-shaking).
+  
+  - Build the Express backend with production settings.
+  
+  - Prepare the MariaDB and Redis services for production use.
+
+  **2. Start the Production Services**
+  Once the images are built, start the services in detached mode (background):
+
+  ```bash
+  docker-compose -f docker-compose.prod.yml up -d
+  ```
+
+  This will:
+  
+  - Start the frontend on port 80 (or the port specified in the configuration).
+  
+  - Start the backend API on port 8000 (or the port specified in the configuration).
+  
+  - Start the MariaDB and Redis services.
+
+  **3. Verify the Deployment**
+
+  After starting the services, verify that everything is running correctly:
+
+  Access the frontend at http://<your-server-ip>.
+
+  Access the backend API at http://<your-server-ip>:8000/api.
+
+  **4. Stop the Production Services**
+  To stop the production services, run:
+  
+  ```bash
+  docker-compose -f docker-compose.prod.yml down
+  ```
+  This will stop and remove all containers, networks, and volumes associated with the production deployment.
+
+**Key Differences in `docker-compose.prod.yml`**
+
+The `docker-compose.prod.yml` file is optimized for production with the following changes:
+
+- **Frontend**: Uses a production build of the React app, served via a lightweight web server **nginx**.
+
+- **Backend**: Runs the Express app with NODE_ENV=production for better performance and security.
+
+- **Database**: Persists MariaDB data to a named volume to ensure data is not lost when containers are restarted.
+
+- **Redis**: Uses a persistent volume for Redis data (if required).
+
+- **Ports**: Exposes only the necessary ports (e.g., 80 for the frontend and 8000 for the backend).
+
+**Scaling in Production**
+
+To scale specific services (e.g., backend or frontend), you can use Docker Compose's scaling feature. For example, to scale the backend to 3 instances:
+
+```bash
+docker-compose -f docker-compose.prod.yml up -d --scale backend=3
+```
+This is useful for handling increased traffic or improving fault tolerance.
+
+
+## Contributing
+Contributions are welcome!
+
+
+## License
+This project is licensed under the Apache-2.0 License. See the LICENSE file for details.
+
+## Acknowledgments
+
+- [Nx](https://nx.dev/) for monorepo management.
+
+- [React](https://reactjs.org/) for the frontend.
+
+- [Express](https://expressjs.com/) for the backend.
+
+- [MariaDB](https://mariadb.org/) for the database.
+
+- [Redis](https://redis.io/) for caching.
+
+- [Docker](https://www.docker.com/) for containerization.
+
+---
+Enjoy building with the REMR Stack Template! 🚀
+---
