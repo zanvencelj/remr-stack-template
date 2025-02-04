@@ -40,7 +40,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Run Lint
-        run: nx affected --target=lint --parallel --base=origin/master --head=HEAD
+        run: npx nx affected --target=lint --parallel --base=origin/master --head=HEAD
 
   test:
     runs-on: ubuntu-latest
@@ -56,7 +56,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Run Tests for Affected Projects
-        run: nx affected --target=test --parallel --base=origin/master --head=HEAD
+        run: npx nx affected --target=test --parallel --base=origin/master --head=HEAD
 
   build:
     runs-on: ubuntu-latest
@@ -72,7 +72,7 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Build Affected Projects
-        run: nx affected --target=build --parallel --base=origin/master --head=HEAD
+        run: npx nx affected --target=build --parallel --base=origin/master --head=HEAD
 
   e2e:
     runs-on: ubuntu-latest
@@ -88,4 +88,4 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile  # Ensure all dependencies are installed
       - name: Run End-to-End Tests
-        run: nx affected --target=e2e --parallel --base=origin/master --head=HEAD
+        run: npx nx affected --target=e2e --parallel --base=origin/master --head=HEAD
