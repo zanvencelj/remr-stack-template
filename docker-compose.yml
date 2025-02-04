@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  redis:
+    image: redis:6-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+
+  backend:
+    build:
+      context: ./backend
+      target: development
+    ports:
+      - "8000:8000"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: mydb
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - mysql
+      - redis
+    develop:
+      watch:
+        - action: sync
+          path: backend
+          target: /app
+        - action: rebuild
+          path: backend/package.json
+
+volumes:
+  mysql-data:
+  redis-data:
