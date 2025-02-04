@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0
+  mariadb:
+    image: mariadb:10.5
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: mydb
@@ -11,7 +11,10 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - type: volume
+        source: mariadb-data
+        target: /var/lib/mysql
+        read_only: false
 
   redis:
     image: redis:6-alpine
@@ -27,14 +30,15 @@ services:
     ports:
       - "8000:8000"
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: mydb
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: mydb
       REDIS_HOST: redis
       REDIS_PORT: 6379
     depends_on:
-      - mysql
+      - mariadb
       - redis
     develop:
       watch:
@@ -45,5 +49,5 @@ services:
           path: backend/package.json
 
 volumes:
-  mysql-data:
+  mariadb-data:
   redis-data:
