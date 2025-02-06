@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@temp/Navigation": ["lib/Navigation/src/index.ts"]
+      "@libs/*": ["libs/*/src/index.ts"],
+      "@temp/Navigation": ["libs/Navigation/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

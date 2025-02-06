@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from "./Home/Home";
-import {Navigation} from "@temp/Navigation";
+import {Navigation} from "@libs/Navigation";
 import Example from "./Example/Example";
 
 export function App() {
