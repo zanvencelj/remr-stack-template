@@ -1,5 +1,26 @@
 ![REMR](https://github.com/user-attachments/assets/7cbd1715-37f4-4c9d-9feb-370ad86b4dc8)
 
+# Table of Contents
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  1. [Clone the Repository](#1-clone-the-repository)
+  2. [Install Dependencies](#2-install-dependencies)
+  3. [Set Up Environment Variables](#3-set-up-environment-variables)
+  4. [Start the Application with Docker](#4-start-the-application-with-docker)
+  5. [Start the Frontend](#5-start-the-frontend)
+  6. [(Optional) Run Without Docker](#6-optional-run-without-docker)
+- [Project Structure](#project-structure)
+- [Available Scripts](#available-scripts)
+- [Docker Configuration](#docker-configuration)
+- [Nx React Monorepo Generators](#nx-react-monorepo-generators)
+  - [Available Generators](#available-generators)
+- [Production Deployment](#production-deployment)
+  - [Steps to Deploy in Production](#steps-to-deploy-in-production)
+  - [Scaling in Production](#scaling-in-production)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 # REMR Stack Template
 A modern, full-stack development template using **Nx Monorepo, React, Express, MariaDB, Redis,** and **Docker**. This project is designed to help you quickly bootstrap a scalable and containerized full-stack application.
@@ -161,6 +182,7 @@ Nx provides powerful generators to streamline the creation and management of Rea
 Here are some of the most commonly used Nx generators for React projects:
 
 1. Generate a New React Application
+   
 To create a new React application inside your monorepo, run:
 
 ```bash
@@ -177,6 +199,7 @@ This command will:
 - Add the app to the Nx workspace configuration.
 
 2. Generate a New React Library
+   
 To create a reusable React library, run:
 
 ```bash 
@@ -193,6 +216,7 @@ This command will:
 - Add the library to the Nx workspace configuration.
 
 3. Generate a New React Component
+   
 To create a new React component inside an application or library, run:
 
 ```bash
