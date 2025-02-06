@@ -20,16 +20,19 @@ services:
       - redis-data:/data
 
   backend:
+    image: remr-backend-dev:latest
+    restart: always
     build:
       context: ./backend
       target: production
     ports:
       - "8000:8000"
     environment:
-      MYSQL_HOST: mariadb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_DATABASE: mydb
+      DB_HOST: mariadb
+      DB_PORT: 3306
+      DB_USER: user
+      DB_PASSWORD: password
+      DB_NAME: mydb
       REDIS_HOST: redis
       REDIS_PORT: 6379
     depends_on:
@@ -37,6 +40,7 @@ services:
       - redis
 
   frontend:
+    image: remr-frontend:latest
     build:
       context: .
       dockerfile: Dockerfile
