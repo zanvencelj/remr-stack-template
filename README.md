@@ -1,5 +1,26 @@
 ![REMR](https://github.com/user-attachments/assets/7cbd1715-37f4-4c9d-9feb-370ad86b4dc8)
 
+# Table of Contents
+- [Features](#features)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+  1. [Clone the Repository](#1-clone-the-repository)
+  2. [Install Dependencies](#2-install-dependencies)
+  3. [Set Up Environment Variables](#3-set-up-environment-variables)
+  4. [Start the Application with Docker](#4-start-the-application-with-docker)
+  5. [Start the Frontend](#5-start-the-frontend)
+  6. [(Optional) Run Without Docker](#6-optional-run-without-docker)
+- [Project Structure](#project-structure)
+- [Available Scripts](#available-scripts)
+- [Docker Configuration](#docker-configuration)
+- [Nx React Monorepo Generators](#nx-react-monorepo-generators)
+  - [Available Generators](#available-generators)
+- [Production Deployment](#production-deployment)
+  - [Steps to Deploy in Production](#steps-to-deploy-in-production)
+  - [Scaling in Production](#scaling-in-production)
+- [Contributing](#contributing)
+- [License](#license)
+- [Acknowledgments](#acknowledgments)
 
 # REMR Stack Template
 A modern, full-stack development template using **Nx Monorepo, React, Express, MariaDB, Redis,** and **Docker**. This project is designed to help you quickly bootstrap a scalable and containerized full-stack application.
@@ -153,6 +174,65 @@ The `docker-compose.yml` file defines the following services:
 
 You can customize the Docker configuration by editing the `docker-compose.yml` file or the individual Dockerfiles.
 
+
+## Nx React Monorepo Generators
+Nx provides powerful generators to streamline the creation and management of React applications and libraries within your monorepo. These generators help you scaffold new projects, components, and libraries quickly while maintaining a consistent structure and configuration.
+
+### Available Generators
+Here are some of the most commonly used Nx generators for React projects:
+
+1. Generate a New React Application
+   
+To create a new React application inside your monorepo, run:
+
+```bash
+npx nx g @nx/react:application <app-name> --directory apps/<app-name>
+```
+Replace <app-name> with the name of your application (e.g., main, admin, dashboard).
+
+This command will:
+
+- Generate a new React app in the apps/<app-name> directory.
+
+- Set up all necessary configuration files (e.g., tsconfig.json, jest.config.ts).
+
+- Add the app to the Nx workspace configuration.
+
+2. Generate a New React Library
+   
+To create a reusable React library, run:
+
+```bash 
+npx nx g @nx/react:library <lib-name> --directory libs/<lib-name>
+```
+Replace <lib-name> with the name of your library (e.g., ui, utils, api).
+
+This command will:
+
+- Generate a new React library in the libs/<lib-name> directory.
+
+- Set up the library with TypeScript, Jest, and ESLint configurations.
+
+- Add the library to the Nx workspace configuration.
+
+3. Generate a New React Component
+   
+To create a new React component inside an application or library, run:
+
+```bash
+npx nx g @nx/react:component <component-name> --project=<project-name>
+```
+Replace <component-name> with the name of your component (e.g., Header, Sidebar) and <project-name> with the name of the project where the component should be created.
+
+This command will:
+
+- Generate a new component in the specified project.
+
+- Create the component file, styles, and test file.
+
+- Update the project's exports if it's a library.
+
+**To learn more about Nx and Nx generators check out [this tutorial](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial)**
 
 ## Production Deployment
 For production deployment, this project includes a `docker-compose.prod.yml` file optimized for running the REMR Stack in a production environment. This configuration ensures that all services (frontend, backend, MariaDB, and Redis) are built and run with production-ready settings.
