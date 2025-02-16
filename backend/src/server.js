@@ -12,6 +12,8 @@ app.use(cors({
 }))
 
 app.use('/api/remr', require('./routes/remrRoutes'));
+app.use('/api/tasks', require('./routes/taskRoutes'));
+app.use('/api/users', require('./routes/userRoutes'));
 
 app.get('/api/test', (req, res) => {
   res.send('Hello from Express backend!');
