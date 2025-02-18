@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require("cors");
 const {initDB} = require("./models");
 
+const avtentikacijaRoutes = require('./routes/avtentikacijaRoutes');
+
 const app = express();
 const port = process.env.PORT || 8000;
 
@@ -11,7 +13,7 @@ app.use(cors({
   origin: "*", // update to match the domain you will make the request from
 }))
 
-app.use('/api/remr', require('./routes/remrRoutes'));
+app.use('/api/auth', avtentikacijaRoutes);
 
 app.get('/api/test', (req, res) => {
   res.send('Hello from Express backend!');
@@ -20,3 +22,4 @@ app.get('/api/test', (req, res) => {
 initDB().then(() => {
   app.listen(port, () => {console.log(`Backend server running on port ${port}`);
 })});
+
