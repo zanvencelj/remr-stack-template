@@ -14,6 +14,14 @@ import {
 } from '@heroicons/react/24/outline';
 import CalendarView from '../components/CalendarView';
 import Clients from '../components/Clients';
+import AnalyticsView from '../components/AnalyticsView';
+import Lokacija from '../components/Lokacija';
+import Storitve from '../components/Storitve';
+import Osebje from '../components/Osebje';
+import Urnik from '../components/Urnik';
+import SplošneNastavitvet from '../components/SplošneNastavitvet';
+import Obvestila from '../components/Obvestila';
+
 
 
 // Glavna Home komponenta, kjer prikažemo koledar in sidebar
@@ -26,6 +34,13 @@ export default function Home() {
       <h2 className="text-2xl font-bold">{activeTab}</h2>
       {activeTab === 'Koledar' && <CalendarView />} {/* Prikaže koledar samo, če je izbrana ta stran */}
       {activeTab === 'Pregled strank' && <Clients/>}
+      {activeTab === 'Analitika' && <AnalyticsView/>}
+      {activeTab === 'Lokacija' && <Lokacija/>}
+      {activeTab === 'Storitve' && <Storitve/>}
+      {activeTab === 'Osebje' && <Osebje/>}
+      {activeTab === 'Urniki' && <Urnik/>}
+      {activeTab === 'Splošne nastavitve' && <SplošneNastavitvet/>}
+      {activeTab === 'Obvestila' && <Obvestila/>}
     </div>
   );
 
