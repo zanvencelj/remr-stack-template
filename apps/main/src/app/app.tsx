@@ -1,7 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import Home from "./Home/Home";
 import {Navigation} from "@libs/Navigation";
-import Example from "./Example/Example";
+import Narocnaje from './Narocanje/narocnaje';
+
 
 export function App() {
   return (
@@ -16,8 +17,8 @@ export function App() {
           element={<Home/>}
         />
         <Route
-          path="/example"
-          element={<Example/>}
+          path="/narocanje"
+          element={<Narocnaje/>}
         />
       </Routes>
       {/* END: routes */}
