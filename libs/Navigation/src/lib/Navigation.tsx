@@ -8,7 +8,7 @@ const Navigation = () => {
           <Link to="/" className="text-white hover:text-gray-400">Home</Link>
         </li>
         <li>
-          <Link to="/example" className="text-white hover:text-gray-400">Example</Link>
+          <Link to="/narocanje" className="text-white hover:text-gray-400">Narocanje</Link>
         </li>
       </ul>
     </nav>
