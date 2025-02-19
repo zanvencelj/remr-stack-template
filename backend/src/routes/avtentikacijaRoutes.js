@@ -5,4 +5,5 @@ const router = express.Router();
 router.post('/podjetje/register', registracijaPodjetja);
 router.post('/uporabnik/register', registracijaUporabnika);
 
+
 module.exports = router;

@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import Home from "./Home/Home";
 import {Navigation} from "@libs/Navigation";
 import Narocnaje from './Narocanje/narocnaje';
+import Registracija from './Registracija/Registracija';
 
 
 export function App() {
@@ -19,6 +20,10 @@ export function App() {
         <Route
           path="/narocanje"
           element={<Narocnaje/>}
+        />
+        <Route
+          path="/registracija"
+          element={<Registracija/>}
         />
       </Routes>
       {/* END: routes */}

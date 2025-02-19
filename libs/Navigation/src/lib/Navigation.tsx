@@ -10,6 +10,9 @@ const Navigation = () => {
         <li>
           <Link to="/narocanje" className="text-white hover:text-gray-400">Narocanje</Link>
         </li>
+        <li>
+          <Link to="/registracija" className="text-white hover:text-gray-400">Registracija</Link>
+        </li>
       </ul>
     </nav>
   );
